@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iron Fit Bragança | Crossfit & Treinamento Funcional</title>
+  <meta name="description" content="Iron Fit Bragança - A melhor experiência em Crossfit e Treinamento Funcional em Bragança Paulista. Venha transformar seu corpo e sua mente.">
+  <meta name="author" content="Akamine Web Studio">
+
+  <!-- Google Fonts: Orbitron + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            iron: {
+              dark: '#0a0a0a',
+              card: '#141414',
+              surface: '#1a1a1a',
+              orange: '#F97316',
+              green: '#22C55E',
+              gray: '#a1a1aa',
+              light: '#e4e4e7'
+            }
+          },
+          fontFamily: {
+            display: ['Orbitron', 'sans-serif'],
+            body: ['JetBrains Mono', 'monospace']
+          },
+          boxShadow: {
+            'neon-orange': '0 0 10px #F97316, 0 0 20px rgba(249,115,22,0.3)',
+            'neon-green': '0 0 10px #22C55E, 0 0 20px rgba(34,197,94,0.3)',
+            'neon-mix': '0 0 15px rgba(249,115,22,0.4), 0 0 30px rgba(34,197,94,0.2)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- AOS Animate On Scroll -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    :root {
+      --color-orange: #F97316;
+      --color-green: #22C55E;
+    }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background-color: #0a0a0a;
+      color: #e4e4e7;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Grid background effect */
+    .bg-grid {
+      background-image: 
+        linear-gradient(rgba(249,115,22,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(249,115,22,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .bg-grid-green {
+      background-image: 
+        linear-gradient(rgba(34,197,94,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,197,94,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    /* Glitch text effect */
+    .glitch {
+      position: relative;
+    }
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.8;
+    }
+    .glitch::before {
+      color: var(--color-orange);
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+      transform: translate(-2px, -1px);
+      animation: glitch-anim-1 3s infinite linear alternate-reverse;
+    }
+    .glitch::after {
+      color: var(--color-green);
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+      transform: translate(2px, 1px);
+      animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+    }
+    @keyframes glitch-anim-1 {
+      0%, 90%, 100% { transform: translate(-2px, -1px); }
+      20% { transform: translate(2px, 1px); }
+      40% { transform: translate(-1px, 2px); }
+      60% { transform: translate(3px, -2px); }
+      80% { transform: translate(-3px, 0); }
+    }
+    @keyframes glitch-anim-2 {
+      0%, 90%, 100% { transform: translate(2px, 1px); }
+      20% { transform: translate(-2px, -1px); }
+      40% { transform: translate(1px, -2px); }
+      60% { transform: translate(-3px, 2px); }
+      80% { transform: translate(3px, 0); }
+    }
+
+    /* Scanline overlay */
+    .scanlines::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.15) 2px,
+        rgba(0,0,0,0.15) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #F97316;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #22C55E;
+    }
+
+    /* Card hover glow */
+    .card-glow {
+      transition: all 0.4s ease;
+    }
+    .card-glow:hover {
+      box-shadow: 0 0 25px rgba(249,115,22,0.2), 0 0 50px rgba(34,197,94,0.1);
+      transform: translateY(-5px);
+      border-color: rgba(249,115,22,0.5);
+    }
+
+    /* Pulse animation for CTA */
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 15px rgba(34,197,94,0.4); }
+      50% { box-shadow: 0 0 30px rgba(34,197,94,0.7), 0 0 60px rgba(34,197,94,0.3); }
+    }
+    .pulse-glow {
+      animation: pulse-glow 2s infinite;
+    }
+
+    /* Floating elements */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+    .float-anim {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Neon border rotation */
+    @keyframes border-rotate {
+      0% { border-color: #F97316; }
+      50% { border-color: #22C55E; }
+      100% { border-color: #F97316; }
+    }
+    .neon-border-anim {
+      animation: border-rotate 4s infinite;
+    }
+
+    /* Image overlay gradient */
+    .img-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.3) 50%, transparent 100%);
+    }
+
+    /* Mobile menu animation */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    /* Pricing card popular badge */
+    .popular-badge {
+      background: linear-gradient(90deg, #F97316, #22C55E);
+    }
+
+    /* Table styling */
+    .schedule-table th {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-iron-dark/80 backdrop-blur-md border-b border-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="#" class="flex items-center space-x-3 group">
+          <div class="w-10 h-10 bg-gradient-to-br from-iron-orange to-iron-green rounded-lg flex items-center justify-center shadow-neon-mix group-hover:scale-110 transition-transform">
+            <i data-lucide="dumbbell" class="w-6 h-6 text-white"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-display font-bold text-xl text-white tracking-wider">IRON FIT</span>
+            <span class="text-xs text-iron-orange font-body tracking-widest">BRAGANÇA</span>
+          </div>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#modalidades" class="text-iron-gray hover:text-iron-orange transition-colors text-sm tracking-wide font-medium">MODALIDADES</a>
+          <a href="#planos" class="text-iron-gray hover:text-iron-orange transition-colors text-sm tracking-wide font-medium">PLANOS</a>
+          <a href="#horarios" class="text-iron-gray hover:text-iron-orange transition-colors text-sm tracking-wide font-medium">HORÁRIOS</a>
+          <a href="#experiencia" class="px-6 py-2.5 bg-gradient-to-r from-iron-orange to-amber-600 text-white font-display text-sm font-semibold rounded-full hover:shadow-neon-orange transition-all duration-300 transform hover:scale-105 tracking-wider">
+            AULA GRÁTIS
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn" class="md:hidden text-white p-2">
+          <i data-lucide="menu" class="w-7 h-7"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobileMenu" class="mobile-menu fixed inset-0 z-50 bg-iron-dark/98 backdrop-blur-xl flex flex-col items-center justify-center space-y-8">
+    <button id="closeMenu" class="absolute top-6 right-6 text-white p-2">
+      <i data-lucide="x" class="w-8 h-8"></i>
+    </button>
+    <a href="#modalidades" class="mobile-link text-2xl font-display text-white hover:text-iron-orange transition-colors">MODALIDADES</a>
+    <a href="#planos" class="mobile-link text-2xl font-display text-white hover:text-iron-orange transition-colors">PLANOS</a>
+    <a href="#horarios" class="mobile-link text-2xl font-display text-white hover:text-iron-orange transition-colors">HORÁRIOS</a>
+    <a href="#experiencia" class="mobile-link px-8 py-3 bg-iron-orange text-white font-display font-bold rounded-full">AULA GRÁTIS</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0">
+      <img 
+        src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80" 
+        alt="Crossfit athlete" 
+        class="w-full h-full object-cover"
+      >
+      <div class="absolute inset-0 bg-gradient-to-r from-iron-dark via-iron-dark/80 to-transparent"></div>
+      <div class="absolute inset-0 bg-grid opacity-30"></div>
+    </div>
+
+    <!-- Scanlines -->
+    <div class="absolute inset-0 scanlines pointer-events-none z-10"></div>
+
+    <!-- Floating Elements -->
+    <div class="absolute top-1/4 right-1/4 w-20 h-20 border border-iron-orange/30 rounded-full float-anim opacity-50 hidden lg:block"></div>
+    <div class="absolute bottom-1/3 right-1/3 w-12 h-12 border border-iron-green/30 rounded-lg rotate-45 float-anim opacity-50 hidden lg:block" style="animation-delay: 1s;"></div>
+
+    <!-- Content -->
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-right" data-aos-duration="1200">
+          <div class="inline-flex items-center space-x-2 px-4 py-2 bg-iron-orange/10 border border-iron-orange/30 rounded-full mb-6">
+            <span class="w-2 h-2 bg-iron-orange rounded-full animate-pulse"></span>
+            <span class="text-iron-orange text-xs font-body tracking-widest uppercase">Bragança Paulista</span>
+          </div>
+
+          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-display font-black text-white leading-tight mb-6">
+            FORJE O SEU
+            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-iron-orange to-amber-500 glitch" data-text="MELHOR EU">MELHOR EU</span>
+          </h1>
+
+          <p class="text-iron-gray text-lg sm:text-xl mb-8 max-w-lg leading-relaxed">
+            Treinamento de alta intensidade, comunidade forte e resultados reais. 
+            <span class="text-iron-green">#IronFitBragança</span>
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#experiencia" class="pulse-glow px-8 py-4 bg-iron-green text-iron-dark font-display font-bold text-center rounded-full hover:bg-emerald-400 transition-all duration-300 transform hover:scale-105 tracking-wider">
+              COMECE AGORA
+            </a>
+            <a href="#modalidades" class="px-8 py-4 border border-iron-orange/50 text-iron-orange font-display font-bold text-center rounded-full hover:bg-iron-orange/10 transition-all duration-300 tracking-wider">
+              CONHEÇA +</a>
+          </div>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/10">
+            <div>
+              <div class="text-3xl font-display font-bold text-white">500<span class="text-iron-orange">+</span></div>
+              <div class="text-xs text-iron-gray mt-1 tracking-wider">ATLETAS</div>
+            </div>
+            <div>
+              <div class="text-3xl font-display font-bold text-white">8<span class="text-iron-green">+</span></div>
+              <div class="text-xs text-iron-gray mt-1 tracking-wider">ANOS</div>
+            </div>
+            <div>
+              <div class="text-3xl font-display font-bold text-white">50<span class="text-iron-orange">k</span></div>
+              <div class="text-xs text-iron-gray mt-1 tracking-wider">TREINOS</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Image / Visual -->
+        <div class="hidden lg:block relative" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="300">
+          <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden border-2 border-iron-orange/30 neon-border-anim">
+            <img 
+              src="https://images.unsplash.com/photo-1517963879466-e1b54ebd0642?w=800&q=80" 
+              alt="Atleta crossfit" 
+              class="w-full h-full object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-iron-dark via-transparent to-transparent"></div>
+          </div>
+          <!-- Decorative elements -->
+          <div class="absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-iron-green/50 rounded-tr-3xl"></div>
+          <div class="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-iron-orange/50 rounded-bl-3xl"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+      <i data-lucide="chevron-down" class="w-6 h-6 text-iron-orange"></i>
+    </div>
+  </section>
+
+  <!-- Modalidades Section -->
+  <section id="modalidades" class="relative py-24 bg-iron-dark overflow-hidden">
+    <div class="absolute inset-0 bg-grid-green opacity-20"></div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <span class="text-iron-orange font-display text-sm tracking-[0.3em] uppercase">Nossas Modalidades</span>
+        <h2 class="text-4xl sm:text-5xl font-display font-black text-white mt-4 mb-6">
+          ESCOLHA SUA <span class="text-transparent bg-clip-text bg-gradient-to-r from-iron-orange to-iron-green">BATALHA</span>
+        </h2>
+        <p class="text-iron-gray max-w-2xl mx-auto">Treinos variados e programados para todos os níveis, do iniciante ao atleta de competição.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Crossfit -->
+        <div class="card-glow bg-iron-card border border-white/5 rounded-2xl overflow-hidden group" data-aos="fade-up" data-aos-delay="0">
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80" 
+              alt="Crossfit" 
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-iron-card to-transparent"></div>
+            <div class="absolute top-4 right-4 w-12 h-12 bg-iron-orange/20 backdrop-blur rounded-xl flex items-center justify-center border border-iron-orange/30">
+              <i data-lucide="flame" class="w-6 h-6 text-iron-orange"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-2xl font-display font-bold text-white mb-3">CROSSFIT</h3>
+            <p class="text-iron-gray text-sm leading-relaxed mb-4">Treino de alta intensidade com variedade constante. Levantamento de peso, ginástica e cardio em WODs desafiadores.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-iron-orange font-display tracking-wider">INTENSO</span>
+              <span class="text-xs text-iron-gray">60 MIN</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Funcional -->
+        <div class="card-glow bg-iron-card border border-white/5 rounded-2xl overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80" 
+              alt="Funcional" 
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-iron-card to-transparent"></div>
+            <div class="absolute top-4 right-4 w-12 h-12 bg-iron-green/20 backdrop-blur rounded-xl flex items-center justify-center border border-iron-green/30">
+              <i data-lucide="zap" class="w-6 h-6 text-iron-green"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-2xl font-display font-bold text-white mb-3">FUNCIONAL</h3>
+            <p class="text-iron-gray text-sm leading-relaxed mb-4">Movimentos naturais do corpo para melhorar força, equilíbrio e condicionamento. Ideal para iniciantes.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-iron-green font-display tracking-wider">ADAPTÁVEL</span>
+              <span class="text-xs text-iron-gray">45 MIN</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Musculação -->
+        <div class="card-glow bg-iron-card border border-white/5 rounded-2xl overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80" 
+              alt="Musculação" 
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-iron-card to-transparent"></div>
+            <div class="absolute top-4 right-4 w-12 h-12 bg-iron-orange/20 backdrop-blur rounded-xl flex items-center justify-center border border-iron-orange/30">
+              <i data-lucide="bar-chart-3" class="w-6 h-6 text-iron-orange"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-2xl font-display font-bold text-white mb-3">MUSCULAÇÃO</h3>
+            <p class="text-iron-gray text-sm leading-relaxed mb-4">Treino de hipertrofia e força com equipamentos de última geração. Acompanhamento personalizado.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-iron-orange font-display tracking-wider">FORÇA</span>
+              <span class="text-xs text-iron-gray">LIVRE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- HIIT -->
+        <div class="card-glow bg-iron-card border border-white/5 rounded-2xl overflow-hidden group" data-aos="fade-up" data-aos-delay="0">
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1434596922112-19c56333a8e3?w=600&q=80" 
+              alt="HIIT" 
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-iron-card to-transparent"></div>
+            <div class="absolute top-4 right-4 w-12 h-12 bg-iron-green/20 backdrop-blur rounded-xl flex items-center justify-center border border-iron-green/30">
+              <i data-lucide="timer" class="w-6 h-6 text-iron-green"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-2xl font-display font-bold text-white mb-3">HIIT</h3>
+            <p class="text-iron-gray text-sm leading-relaxed mb-4">Treinos intervalados de alta intensidade para queima máxima de gordura e aumento do metabolismo.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-iron-green font-display tracking-wider">CARDIO</span>
+              <span class="text-xs text-iron-gray">30 MIN</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobility -->
+        <div class="card-glow bg-iron-card border border-white/5 rounded-2xl overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80" 
+              alt="Mobility" 
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-iron-card to-transparent"></div>
+            <div class="absolute top-4 right-4 w-12 h-12 bg-iron-orange/20 backdrop-blur rounded-xl flex items-center justify-center border border-iron-orange/30">
+              <i data-lucide="activity" class="w-6 h-6 text-iron-orange"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-2xl font-display font-bold text-white mb-3">MOBILITY</h3>
+            <p class="text-iron-gray text-sm leading-relaxed mb-4">Recuperação ativa, alongamento e mobilidade articular para prevenir lesões e melhorar performance.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-iron-orange font-display tracking-wider">RECUPERAÇÃO</span>
+              <span class="text-xs text-iron-gray">45 MIN</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Competição -->
+        <div class="card-glow bg-iron-card border border-white/5 rounded-2xl overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1552674605-46d536d2e609?w=600&q=80" 
+              alt="Competição" 
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-iron-card to-transparent"></div>
+            <div class="absolute top-4 right-4 w-12 h-12 bg-gradient-to-r from-iron-orange to-iron-green backdrop-blur rounded-xl flex items-center justify-center border border-white/30">
+              <i data-lucide="trophy" class="w-6 h-6 text-white"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-2xl font-display font-bold text-white mb-3">COMPETIÇÃO</h3>
+            <p class="text-iron-gray text-sm leading-relaxed mb-4">Programação avançada para atletas de competição. Prep física específica e estratégia de WODs.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-transparent bg-clip-text bg-gradient-to-r from-iron-orange to-iron-green font-display tracking-wider">ELITE</span>
+              <span class="text-xs text-iron-gray">90 MIN</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planos Section -->
+  <section id="planos" class="relative py-24 bg-iron-dark overflow-hidden">
+    <div class="absolute inset-0 bg-grid opacity-20"></div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <span class="text-iron-green font-display text-sm tracking-[0.3em] uppercase">Investimento</span>
+        <h2 class="text-4xl sm:text-5xl font-display font-black text-white mt-4 mb-6">
+          ESCOLHA SEU <span class="text-transparent bg-clip-text bg-gradient-to-r from-iron-green to-iron-orange">PLANO</span>
+        </h2>
+        <p class="text-iron-gray max-w-2xl mx-auto">Sem taxa de matrícula. Cancele quando quiser. Seu primeiro passo começa aqui.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+        <!-- Plano Basic -->
+        <div class="card-glow bg-iron-card border border-white/10 rounded-2xl p-8 relative" data-aos="fade-up" data-aos-delay="0">
+          <div class="mb-6">
+            <h3 class="text-xl font-display font-bold text-white mb-2">STARTER</h3>
+            <p class="text-iron-gray text-sm">3x por semana</p>
+          </div>
+          <div class="mb-8">
+            <span class="text-4xl font-display font-black text-white">R$139</span>
+            <span class="text-iron-gray">/mês</span>
+          </div>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-sm text-iron-gray">
+              <i data-lucide="check" class="w-4 h-4 text-iron-green mr-3 flex-shrink-0"></i>
+              Acesso às aulas funcionais
+            </li>
+            <li class="flex items-center text-sm text-iron-gray">
+              <i data-lucide="check" class="w-4 h-4 text-iron-green mr-3 flex-shrink-0"></i>
+              Área de musculação
+            </li>
+            <li class="flex items-center text-sm text-iron-gray">
+              <i data-lucide="check" class="w-4 h-4 text-iron-green mr-3 flex-shrink-0"></i>
+              Avaliação física mensal
+            </li>
+            <li class="flex items-center text-sm text-iron-gray/40">
+              <i data-lucide="x" class="w-4 h-4 text-iron-gray/40 mr-3 flex-shrink-0"></i>
+              Crossfit ilimitado
+            </li>
+          </ul>
+          <button class="w-full py-3 border border-white/20 text-white font-display font-semibold rounded-full hover:bg-white/5 transition-colors tracking-wider" onclick="alert('Em breve: Redirecionamento para pagamento!')">
+            ESCOLHER
+          </button>
+        </div>
+
+        <!-- Plano Pro (Popular) -->
+        <div class="card-glow bg-iron-surface border-2 border-iron-orange/50 rounded-2xl p-8 relative transform md:scale-110 shadow-neon-orange" data-aos="fade-up" data-aos-delay="100">
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <span class="popular-badge px-4 py-1 rounded-full text-white text-xs font-display font-bold tracking-wider">MAIS POPULAR</span>
+          </div>
+          <div class="mb-6 mt-2">
+            <h3 class="text-xl font-display font-bold text-white mb-2">ATHLETE</h3>
+            <p class="text-iron-gray text-sm">Ilimitado</p>
+          </div>
+          <div class="mb-8">
+            <span class="text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-iron-orange to-amber-500">R$199</span>
+            <span class="text-iron-gray">/mês</span>
+          </div>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-sm text-iron-gray">
+              <i data-lucide="check" class="w-4 h-4 text-iron-green mr-3 flex-shrink-0"></i>
+              Todas as modalidades
+            </li>
+            <li class="flex items-center text-sm text-iron-gray">
+              <i data-lucide="check" class="w-4 h-4 text-iron-green mr-3 flex-shrink-0"></i>
+              Acesso ilimitado
+            </li>
+            <li class="flex items-center text-sm text-iron-gray">
+              <i data-lucide="check" class="w-4 h-4 text-iron-green mr-3 flex-shrink-0"></i>
+              Nutricionista mensal
+            </li>
+            <li class="flex items-center text-sm text-iron-gray">
+              <i data-lucide="check" class="w-4 h-4 text-iron-green mr-3 flex-shrink-0"></i>
+              Camiseta exclusiva
+            </li>
+          </ul>
+          <button class="w-full py-4 bg-gradient-to-r from-iron-orange to-amber-600 text-white font-display font-bold rounded-full hover:shadow-neon-orange transition-all duration-300 tracking-wider" onclick="alert('Em breve: Redirecionamento para pagamento!')">
+            COMEÇAR AGORA
+          </button>
+        </div>
+
+        <!-- Plano Elite -->
+        <div class="card-glow bg-iron-card border border-white/10 rounded-2xl p-8 relative" data-aos="fade-up" data-aos-delay="200">
+          <div class="mb-6">
+            <h3 class="text-xl font-display font-bold text-white mb-2">ELITE</h3>
+            <p class="text-iron-gray text-sm">Competição + Personal</p>
+          </div>
+          <div class="mb-8">
+            <span class="text-4xl font-display font-black text-white">R$349</span>
+            <span class="text-iron-gray">/mês</span>
+          </div>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-sm text-iron-gray">
+              <i data-lucide="check" class="w-4 h-4 text-iron-green mr-3 flex-shrink-0"></i>
+              Tudo do plano Athlete
+            </li>
+            <li class="flex items-center text-sm text-iron-gray">
+              <i data-lucide="check" class="w-4 h-4 text-iron-green mr-3 flex-shrink-0"></i>
+              4x Personal / mês
+            </li>
+            <li class="flex items-center text-sm text-iron-gray">
+              <i data-lucide="check" class="w-4 h-4 text-iron-green mr-3 flex-shrink-0"></i>
+              Programação competição
+            </li>
+            <li class="flex items-center text-sm text-iron-gray">
+              <i data-lucide="check" class="w-4 h-4 text-iron-green mr-3 flex-shrink-0"></i>
+              Acesso VIP 24h
+            </li>
+          </ul>
+          <button class="w-full py-3 border border-white/20 text-white font-display font-semibold rounded-full hover:bg-white/5 transition-colors tracking-wider" onclick="alert('Em breve: Redirecionamento para pagamento!')">
+            ESCOLHER
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule Section -->
+  <section id="horarios" class="relative py-24 bg-iron-dark overflow-hidden">
+    <div class="absolute inset-0 bg-grid-green opacity-10"></div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <span class="text-iron-orange font-display text-sm tracking-[0.3em] uppercase">Agenda Semanal</span>
+        <h2 class="text-4xl sm:text-5xl font-display font-black text-white mt-4 mb-6">
+          HORÁRIOS DE <span class="text-transparent bg-clip-text bg-gradient-to-r from-iron-orange to-iron-green">TREINO</span>
+        </h2>
+        <p class="text-iron-gray max-w-2xl mx-auto">Box aberto de segunda a sábado. Escolha o melhor horário para evoluir.</p>
+      </div>
+
+      <div class="overflow-x-auto" data-aos="fade-up" data-aos-delay="200">
+        <table class="w-full schedule-table text-sm min-w-[800px]">
+          <thead>
+            <tr class="border-b border-iron-orange/30">
+              <th class="text-left py-4 px-4 text-iron-orange">HORÁRIO</th>
+              <th class="text-center py-4 px-4 text-iron-gray">SEGUNDA</th>
+              <th class="text-center py-4 px-4 text-iron-gray">TERÇA</th>
+              <th class="text-center py-4 px-4 text-iron-gray">QUARTA</th>
+              <th class="text-center py-4 px-4 text-iron-gray">QUINTA</th>
+              <th class="text-center py-4 px-4 text-iron-gray">SEXTA</th>
+              <th class="text-center py-4 px-4 text-iron-gray">SÁBADO</th>
+            </tr>
+          </thead>
+          <tbody class="font-body">
+            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+              <td class="py-4 px-4 text-white font-display">06:00</td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">FUNCIONAL</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">FUNCIONAL</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="text-iron-gray text-xs">—</span></td>
+            </tr>
+            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+              <td class="py-4 px-4 text-white font-display">07:00</td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">HIIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">HIIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">HIIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+            </tr>
+            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+              <td class="py-4 px-4 text-white font-display">08:00</td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">FUNCIONAL</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">FUNCIONAL</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">FUNCIONAL</span></td>
+            </tr>
+            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+              <td class="py-4 px-4 text-white font-display">18:00</td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">FUNCIONAL</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">FUNCIONAL</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">FUNCIONAL</span></td>
+              <td class="py-4 px-4 text-center"><span class="text-iron-gray text-xs">—</span></td>
+            </tr>
+            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+              <td class="py-4 px-4 text-white font-display">19:00</td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">HIIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">HIIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="text-iron-gray text-xs">—</span></td>
+            </tr>
+            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+              <td class="py-4 px-4 text-white font-display">20:00</td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">MOBILITY</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">MOBILITY</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-orange/10 text-iron-orange rounded-full text-xs">CROSSFIT</span></td>
+              <td class="py-4 px-4 text-center"><span class="px-3 py-1 bg-iron-green/10 text-iron-green rounded-full text-xs">MOBILITY</span></td>
+              <td class="py-4 px-4 text-center"><span class="text-iron-gray text-xs">—</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Additional Info -->
+      <div class="grid sm:grid-cols-3 gap-6 mt-12" data-aos="fade-up" data-aos-delay="300">
+        <div class="flex items-center space-x-4 p-4 bg-iron-card rounded-xl border border-white/5">
+          <div class="w-12 h-12 bg-iron-orange/10 rounded-lg flex items-center justify-center">
+            <i data-lucide="sunrise" class="w-6 h-6 text-iron-orange"></i>
+          </div>
+          <div>
+            <div class="text-white font-display font-bold">Manhã</div>
+            <div class="text-iron-gray text-xs">06:00 - 09:00</div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-4 p-4 bg-iron-card rounded-xl border border-white/5">
+          <div class="w-12 h-12 bg-iron-green/10 rounded-lg flex items-center justify-center">
+            <i data-lucide="sunset" class="w-6 h-6 text-iron-green"></i>
+          </div>
+          <div>
+            <div class="text-white font-display font-bold">Noite</div>
+            <div class="text-iron-gray text-xs">18:00 - 21:00</div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-4 p-4 bg-iron-card rounded-xl border border-white/5">
+          <div class="w-12 h-12 bg-iron-orange/10 rounded-lg flex items-center justify-center">
+            <i data-lucide="calendar-check" class="w-6 h-6 text-iron-orange"></i>
+          </div>
+          <div>
+            <div class="text-white font-display font-bold">Sábado</div>
+            <div class="text-iron-gray text-xs">07:00 - 09:00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section / Aula Experimental -->
+  <section id="experiencia" class="relative py-24 overflow-hidden">
+    <!-- Background -->
+    <div class="absolute inset-0">
+      <img 
+        src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=1920&q=80" 
+        alt="Box Crossfit" 
+        class="w-full h-full object-cover"
+      >
+      <div class="absolute inset-0 bg-iron-dark/90"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-iron-orange/20 to-iron-green/20"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="zoom-in" data-aos-duration="1000">
+      <div class="inline-flex items-center space-x-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-8">
+        <i data-lucide="gift" class="w-4 h-4 text-iron-green"></i>
+        <span class="text-iron-green text-xs font-body tracking-widest uppercase">Primeira Aula Gratuita</span>
+      </div>
+
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-white mb-6">
+        VENHA <span class="text-transparent bg-clip-text bg-gradient-to-r from-iron-orange to-iron-green">EXPERIMENTAR</span>
+      </h2>
+
+      <p class="text-iron-gray text-lg mb-10 max-w-2xl mx-auto">
+        Agende sua aula experimental gratuita e descubra por que a Iron Fit é referência em Bragança Paulista. 
+        Equipamentos de ponta, coaches certificados e uma comunidade que te impulsiona.
+      </p>
+
+      <form class="max-w-md mx-auto space-y-4 text-left" onsubmit="event.preventDefault(); alert('Obrigado! Entraremos em contato em breve.');">
+        <div>
+          <label class="block text-xs text-iron-gray mb-2 tracking-wider">NOME</label>
+          <input type="text" required placeholder="Seu nome completo" class="w-full px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-iron-gray/50 focus:border-iron-orange focus:outline-none focus:ring-1 focus:ring-iron-orange transition-colors">
+        </div>
+        <div>
+          <label class="block text-xs text-iron-gray mb-2 tracking-wider">WHATSAPP</label>
+          <input type="tel" required placeholder="(XX) XXXXX-XXXX" class="w-full px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-iron-gray/50 focus:border-iron-orange focus:outline-none focus:ring-1 focus:ring-iron-orange transition-colors">
+        </div>
+        <div>
+          <label class="block text-xs text-iron-gray mb-2 tracking-wider">MODALIDADE DE INTERESSE</label>
+          <select class="w-full px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-iron-orange focus:outline-none focus:ring-1 focus:ring-iron-orange transition-colors appearance-none">
+            <option value="" class="bg-iron-dark">Selecione...</option>
+            <option value="crossfit" class="bg-iron-dark">Crossfit</option>
+            <option value="funcional" class="bg-iron-dark">Funcional</option>
+            <option value="musculacao" class="bg-iron-dark">Musculação</option>
+            <option value="hiit" class="bg-iron-dark">HIIT</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full py-4 mt-2 bg-gradient-to-r from-iron-orange to-amber-600 text-white font-display font-bold rounded-full hover:shadow-neon-orange transition-all duration-300 transform hover:scale-105 tracking-wider pulse-glow">
+          AGENDAR AULA GRÁTIS
+        </button>
+      </form>
+
+      <div class="flex items-center justify-center space-x-8 mt-10">
+        <div class="flex items-center space-x-2 text-iron-gray text-sm">
+          <i data-lucide="shield-check" class="w-4 h-4 text-iron-green"></i>
+          <span>Sem compromisso</span>
+        </div>
+        <div class="flex items-center space-x-2 text-iron-gray text-sm">
+          <i data-lucide="users" class="w-4 h-4 text-iron-green"></i>
+          <span>Todos os níveis</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative bg-iron-dark border-t border-white/5 pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-12 mb-12">
+        <!-- Brand -->
+        <div class="md:col-span-1">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 bg-gradient-to-br from-iron-orange to-iron-green rounded-lg flex items-center justify-center">
+              <i data-lucide="dumbbell" class="w-6 h-6 text-white"></i>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-display font-bold text-xl text-white tracking-wider">IRON FIT</span>
+              <span class="text-xs text-iron-orange font-body tracking-widest">BRAGANÇA</span>
+            </div>
+          </div>
+          <p class="text-iron-gray text-sm leading-relaxed mb-6">
+            Transformando vidas em Bragança Paulista através do movimento, disciplina e comunidade.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center border border-white/10 hover:border-iron-orange hover:text-iron-orange transition-colors text-white">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center border border-white/10 hover:border-iron-orange hover:text-iron-orange transition-colors text-white">
+              <i data-lucide="facebook" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center border border-white/10 hover:border-iron-orange hover:text-iron-orange transition-colors text-white">
+              <i data-lucide="youtube" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <h4 class="font-display font-bold text-white mb-4 tracking-wider text-sm">NAVEGAÇÃO</h4>
+          <ul class="space-y-3">
+            <li><a href="#modalidades" class="text-iron-gray hover:text-iron-orange transition-colors text-sm">Modalidades</a></li>
+            <li><a href="#planos" class="text-iron-gray hover:text-iron-orange transition-colors text-sm">Planos</a></li>
+            <li><a href="#horarios" class="text-iron-gray hover:text-iron-orange transition-colors text-sm">Horários</a></li>
+            <li><a href="#experiencia" class="text-iron-gray hover:text-iron-orange transition-colors text-sm">Aula Grátis</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="font-display font-bold text-white mb-4 tracking-wider text-sm">CONTATO</h4>
+          <ul class="space-y-3">
+            <li class="flex items-center space-x-3 text-sm text-iron-gray">
+              <i data-lucide="map-pin" class="w-4 h-4 text-iron-orange flex-shrink-0"></i>
+              <span>Av. Maj. Fernando Valle, 1000 - Bragança Paulista</span>
+            </li>
+            <li class="flex items-center space-x-3 text-sm text-iron-gray">
+              <i data-lucide="phone" class="w-4 h-4 text-iron-green flex-shrink-0"></i>
+              <span>(11) 99999-9999</span>
+            </li>
+            <li class="flex items-center space-x-3 text-sm text-iron-gray">
+              <i data-lucide="mail" class="w-4 h-4 text-iron-orange flex-shrink-0"></i>
+              <span>contato@ironfitbraganca.com.br</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Hours -->
+        <div>
+          <h4 class="font-display font-bold text-white mb-4 tracking-wider text-sm">FUNCIONAMENTO</h4>
+          <ul class="space-y-3">
+            <li class="flex justify-between text-sm">
+              <span class="text-iron-gray">Seg - Sex</span>
+              <span class="text-white">06:00 - 21:00</span>
+            </li>
+            <li class="flex justify-between text-sm">
+              <span class="text-iron-gray">Sábado</span>
+              <span class="text-white">07:00 - 09:00</span>
+            </li>
+            <li class="flex justify-between text-sm">
+              <span class="text-iron-gray">Domingo</span>
+              <span class="text-iron-gray">Fechado</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom -->
+      <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-iron-gray text-xs">
+          &copy; <span id="year"></span> Iron Fit Bragança. Todos os direitos reservados.
+        </p>
+        <p class="text-iron-gray/60 text-xs flex items-center gap-2">
+          Desenvolvido por 
+          <a href="https://akaminewebstudio.com.br" target="_blank" class="text-iron-orange hover:text-iron-green transition-colors font-medium">Akamine Web Studio</a>
+          <span class="w-1 h-1 bg-iron-gray/40 rounded-full"></span>
+          Bragança Paulista
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100,
+      easing: 'ease-out-cubic'
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-iron-dark/95', 'border-white/5', 'shadow-lg');
+        navbar.classList.remove('bg-iron-dark/80', 'border-transparent');
+      } else {
+        navbar.classList.remove('bg-iron-dark/95', 'border-white/5', 'shadow-lg');
+        navbar.classList.add('bg-iron-dark/80', 'border-transparent');
+      }
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+    closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // Update year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Re-initialize icons after any DOM changes (if needed)
+    window.addEventListener('load', () => {
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
