@@ -274,7 +274,7 @@
     }
     .skip-link:focus { top: 0; }
 
-    /* ---------- Mobile: disable backdrop-filter to prevent scroll smearing ---------- */
+    /* ---------- Mobile: eliminate scroll smearing by reducing compositing layers ---------- */
     @media (max-width: 767px) {
       .glass-nav, .glass-strong, .glass {
         backdrop-filter: none !important;
@@ -283,6 +283,8 @@
       .glass-nav {
         background: linear-gradient(160deg, rgba(8,9,11,0.98), rgba(13,15,18,0.95));
         border-bottom: 1px solid rgba(255,255,255,0.06);
+        transform: none !important;
+        will-change: auto !important;
       }
       .glass-strong {
         background: linear-gradient(160deg, rgba(20,23,28,0.95), rgba(13,15,18,0.92));
@@ -291,6 +293,27 @@
       .glass {
         background: linear-gradient(160deg, rgba(30,35,42,0.95), rgba(20,23,28,0.92));
         border: 1px solid rgba(255,255,255,0.09);
+      }
+      /* Disable heavy aurora blur and grain blend mode that force extra compositing layers */
+      .aurora, .aurora::before, .aurora::after {
+        display: none !important;
+      }
+      .grain {
+        mix-blend-mode: normal !important;
+        opacity: 0.02 !important;
+      }
+      /* Remove will-change from animated/revealing elements */
+      .reveal, .reveal-left, .reveal-right, .reveal-scale, .card-tilt {
+        will-change: auto !important;
+      }
+      /* Stop continuous marquee animation to free up the compositor */
+      .marquee {
+        animation: none !important;
+      }
+      /* Prevent hero parallax from creating a separate compositing layer */
+      #heroBg {
+        will-change: auto !important;
+        transform: none !important;
       }
     }
 
@@ -982,7 +1005,8 @@
 
       /* ---- Hero parallax (GPU transform, rAF-throttled) ---- */
       const parallaxEls = document.querySelectorAll('[data-parallax]');
-      if (!prefersReduced && parallaxEls.length) {
+      const isMobile = window.innerWidth < 768;
+      if (!prefersReduced && !isMobile && parallaxEls.length) {
         let pTick = false;
         window.addEventListener('scroll', () => {
           if (!pTick) {
