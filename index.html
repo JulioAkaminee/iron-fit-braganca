@@ -136,6 +136,15 @@
       backdrop-filter: blur(20px) saturate(150%);
       -webkit-backdrop-filter: blur(20px) saturate(150%);
     }
+    /* Navbar glass: reduced blur to prevent scroll smearing artifacts */
+    .glass-nav {
+      background: linear-gradient(160deg, rgba(8,9,11,0.92), rgba(13,15,18,0.88));
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(8px) saturate(120%);
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+      transform: translateZ(0);
+      will-change: transform;
+    }
 
     /* ---------- Gradient text ---------- */
     .text-gradient {
@@ -935,9 +944,9 @@
       const onScroll = () => {
         const y = window.scrollY;
         if (y > 40) navInner.classList.add('h-16'), navInner.classList.remove('h-20'),
-                    navbar.classList.add('glass-strong', 'shadow-soft');
+                    navbar.classList.add('glass-nav', 'shadow-soft');
         else        navInner.classList.add('h-20'), navInner.classList.remove('h-16'),
-                    navbar.classList.remove('glass-strong', 'shadow-soft');
+                    navbar.classList.remove('glass-nav', 'shadow-soft');
         const h = document.documentElement.scrollHeight - window.innerHeight;
         if (progress) progress.style.transform = 'scaleX(' + (h > 0 ? y / h : 0) + ')';
         if (toTop) toTop.classList.toggle('opacity-0', y < 600),
