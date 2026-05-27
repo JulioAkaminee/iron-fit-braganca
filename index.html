@@ -385,13 +385,16 @@
   <!-- ============ HERO ============ -->
   <section id="hero" class="relative min-h-[100svh] flex items-center overflow-hidden pt-24 pb-16">
     <!-- Background image (parallax) -->
-    <div class="absolute inset-0 -z-10">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-ink-800 via-ink-900 to-black">
       <img id="heroBg"
         src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80"
         alt="" aria-hidden="true" fetchpriority="high" decoding="async"
+        onerror="this.style.display='none'"
         class="w-full h-[118%] object-cover will-change-transform" data-parallax="0.18">
-      <div class="absolute inset-0 bg-gradient-to-r from-ink-900 via-ink-900/90 to-ink-900/40"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-transparent to-ink-900/60"></div>
+      <!-- Scrim: mobile uses a bottom-weighted vertical gradient so the image stays visible;
+           desktop (lg) keeps the left-to-right scrim for the side-by-side layout. -->
+      <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/55 to-ink-900/20 lg:bg-gradient-to-r lg:from-ink-900 lg:via-ink-900/90 lg:to-ink-900/40"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-ink-900/55 via-transparent to-transparent lg:bg-gradient-to-t lg:from-ink-900 lg:via-transparent lg:to-ink-900/60"></div>
     </div>
     <div class="aurora -z-10" aria-hidden="true"></div>
     <div class="grain -z-10" aria-hidden="true"></div>
@@ -932,7 +935,12 @@
         if (src) img.src = src;
         const done = () => img.classList.add('loaded');
         if (img.complete && img.naturalWidth) done();
-        else img.addEventListener('load', done, { once: true });
+        else {
+          img.addEventListener('load', done, { once: true });
+          // If a CDN image fails (e.g. rate-limited), fade it out so the card's
+          // dark gradient shows cleanly instead of a broken-image glyph.
+          img.addEventListener('error', () => { img.style.opacity = '0'; }, { once: true });
+        }
       };
       if ('IntersectionObserver' in window) {
         const imgObs = new IntersectionObserver((entries, obs) => {
@@ -945,6 +953,7 @@
 
       /* ---- Reveal on scroll (Intersection Observer) ---- */
       const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+      const showAll = () => revealEls.forEach(el => el.classList.add('is-visible'));
       if ('IntersectionObserver' in window && !prefersReduced) {
         const revObs = new IntersectionObserver((entries, obs) => {
           entries.forEach(e => {
@@ -952,8 +961,11 @@
           });
         }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
         revealEls.forEach(el => revObs.observe(el));
+        // Failsafe: content must never stay hidden. If the observer misfires or
+        // a slow CDN delays paint, force everything visible after a short grace period.
+        setTimeout(showAll, 2500);
       } else {
-        revealEls.forEach(el => el.classList.add('is-visible'));
+        showAll();
       }
 
       /* ---- Animated counters ---- */
